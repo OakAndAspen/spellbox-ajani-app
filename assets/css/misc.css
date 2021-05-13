@@ -1,0 +1,41 @@
+html, body, #__nuxt, #__layout {
+    height: 100%;
+}
+
+/* Buttons */
+
+.btn {
+    font-variant: all-small-caps;
+}
+
+.btn.btn-primary {
+    background-color: rgb(var(--sb-blue-normal));
+    border-color: rgb(var(--sb-blue-normal));
+}
+
+.btn.btn-secondary {
+    background-color: rgb(var(--sb-gray));
+    border-color: rgb(var(--sb-gray));
+}
+
+.btn.btn-info {
+    background-color: rgb(var(--sb-brown-light));
+    border-color: rgb(var(--sb-brown-light));
+}
+
+.btn.btn-danger {
+    background-color: rgb(var(--sb-red));
+    border-color: rgb(var(--sb-red));
+}
+
+.btn.btn-warning {
+    background-color: rgb(var(--sb-orange));
+    border-color: rgb(var(--sb-orange));
+}
+
+.btn.btn-success {
+    background-color: rgb(var(--sb-green));
+    border-color: rgb(var(--sb-green));
+}
+
+

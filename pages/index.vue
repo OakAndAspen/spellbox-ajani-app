@@ -1,73 +1,52 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        spellbox-ajani-app
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
-  </div>
+    <b-container class="h-100 d-flex align-items-center justify-content-center">
+        <div>
+            <div class="text-center mb-4">
+                <h1 class="display-1 font-display mb-4">
+                    <span class="t-blue-normal">Spell</span><span class="t-brown-dark">Box</span>
+                </h1>
+                <b class="mb-4 t-dark">A Magic : the Gathering card collection manager</b>
+            </div>
+            <b-form @submit="onSubmit">
+                <b-form-input
+                    v-model="form.email"
+                    type="email"
+                    placeholder="Email address"
+                    required
+                    class="mb-2 text-center"
+                ></b-form-input>
+                <b-form-input
+                    v-model="form.password"
+                    type="password"
+                    placeholder="Password"
+                    required
+                    class="mb-2 text-center"
+                ></b-form-input>
+                <b-button type="submit" variant="primary" class="w-100">Login</b-button>
+                <b-button type="submit" variant="success" class="w-100">Login</b-button>
+                <b-button type="submit" variant="warning" class="w-100">Login</b-button>
+                <b-button type="submit" variant="danger" class="w-100">Login</b-button>
+                <b-button type="submit" variant="info" class="w-100">Login</b-button>
+                <b-button type="submit" variant="secondary" class="w-100">Login</b-button>
+            </b-form>
+        </div>
+    </b-container>
 </template>
 
 <script>
-export default {}
+export default {
+    data() {
+        return {
+            form: {
+                email: "",
+                password: ""
+            }
+        }
+    },
+    methods: {
+        onSubmit() {
+            console.log("Submit");
+        }
+    }
+}
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
