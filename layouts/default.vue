@@ -1,3 +1,6 @@
 <template>
-    <Nuxt/>
+    <div>
+        <h1>App</h1>
+        <Nuxt/>
+    </div>
 </template>

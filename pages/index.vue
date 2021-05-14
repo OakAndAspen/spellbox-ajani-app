@@ -23,11 +23,6 @@
                     class="mb-2 text-center"
                 ></b-form-input>
                 <b-button type="submit" variant="primary" class="w-100">Login</b-button>
-                <b-button type="submit" variant="success" class="w-100">Login</b-button>
-                <b-button type="submit" variant="warning" class="w-100">Login</b-button>
-                <b-button type="submit" variant="danger" class="w-100">Login</b-button>
-                <b-button type="submit" variant="info" class="w-100">Login</b-button>
-                <b-button type="submit" variant="secondary" class="w-100">Login</b-button>
             </b-form>
         </div>
     </b-container>
@@ -35,6 +30,7 @@
 
 <script>
 export default {
+    layout: "public",
     data() {
         return {
             form: {
@@ -44,8 +40,18 @@ export default {
         }
     },
     methods: {
-        onSubmit() {
-            console.log("Submit");
+        async onSubmit(event) {
+            event.preventDefault();
+
+            const data = await this.$api.$post('/api/login', {
+                email: this.form.email,
+                password: this.form.password
+            });
+
+            if(data.authKey && process.client) {
+                localStorage.setItem("authKey", data.authKey);
+                window.location = "/app";
+            }
         }
     }
 }
