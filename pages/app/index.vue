@@ -1,15 +1,8 @@
 <template>
-    <b-container class="h-100 d-flex align-items-center justify-content-center">
-        <div>
-            <div class="text-center mb-4">
-                <h1 class="display-1 font-display mb-4">
-                    <span class="t-blue-normal">Spell</span><span class="t-brown-dark">Box</span>
-                </h1>
-                <b class="mb-4 t-dark">You're logged in!</b>
-                <b-button @click="getDecks">Try to get the decks list</b-button>
-            </div>
-        </div>
-    </b-container>
+    <div>
+        <h1>Some content</h1>
+        <p>    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
 </template>
 
 <script>

@@ -2,8 +2,8 @@
     <b-container class="h-100 d-flex align-items-center justify-content-center">
         <div>
             <div class="text-center mb-4">
-                <h1 class="display-1 font-display mb-4">
-                    <span class="t-blue-normal">Spell</span><span class="t-brown-dark">Box</span>
+                <h1 class="display-1 mb-4">
+                    <logo/>
                 </h1>
                 <b class="mb-4 t-dark">A Magic : the Gathering card collection manager</b>
             </div>
@@ -29,7 +29,9 @@
 </template>
 
 <script>
+import Logo from "@/components/Logo.vue";
 export default {
+    components: {Logo},
     layout: "public",
     data() {
         return {
