@@ -24,11 +24,7 @@
         </div>
         <section id="PageWrapper">
             <b-container class="py-4">
-                <b-row>
-                    <b-col>
-                        <Nuxt/>
-                    </b-col>
-                </b-row>
+                <Nuxt/>
             </b-container>
         </section>
     </div>
@@ -39,7 +35,8 @@ import Logo from "@/components/Logo.vue";
 import Navigation from "~/components/Navigation.vue";
 
 export default {
-    components: {Logo, Navigation}
+    components: {Logo, Navigation},
+    middleware: "auth"
 }
 </script>
 
@@ -61,7 +58,7 @@ export default {
     color: rgb(var(--sb-light)) !important;
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 767px) {
     #DefaultLayout #FloatingMenu {
         width: 100%;
     }
@@ -71,7 +68,7 @@ export default {
     }
 }
 
-@media only screen and (min-width: 720px) {
+@media only screen and (min-width: 767px) {
     #DefaultLayout #PageWrapper {
         margin-left: 70px;
     }

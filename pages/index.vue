@@ -24,12 +24,14 @@
                 ></b-form-input>
                 <b-button type="submit" variant="primary" class="w-100">Login</b-button>
             </b-form>
+            <b-alert :variant="message.type" class="mt-4" :show="!!message.text">{{ message.text }}</b-alert>
         </div>
     </b-container>
 </template>
 
 <script>
 import Logo from "@/components/Logo.vue";
+
 export default {
     components: {Logo},
     layout: "public",
@@ -38,21 +40,39 @@ export default {
             form: {
                 email: "",
                 password: ""
+            },
+            message: {
+                type: "danger",
+                text: ""
             }
+        }
+    },
+    mounted() {
+        if(this.$auth.loggedIn && process.client) {
+            window.location = "/app/search";
         }
     },
     methods: {
         async onSubmit(event) {
             event.preventDefault();
 
-            const data = await this.$api.$post('/api/login', {
-                email: this.form.email,
-                password: this.form.password
-            });
-
-            if(data.authKey && process.client) {
-                localStorage.setItem("authKey", data.authKey);
-                window.location = "/app";
+            try {
+                this.$auth.login({
+                    data: this.form
+                }).then(data => {
+                    this.message.type = "success";
+                    this.message.text = "You have successfully logged in!";
+                    if(process.client) window.location = "/app/search";
+                }).catch(error => {
+                    console.log("ERROR", error)
+                    this.message.type = "danger";
+                    this.message.text = "There was a error during login";
+                });
+            } catch (error) {
+                if (error.response) {
+                    this.message.type = "danger";
+                    this.message.text = error.response.data.error;
+                }
             }
         }
     }

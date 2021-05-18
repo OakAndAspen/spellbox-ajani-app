@@ -20,7 +20,7 @@ export default {
         '@/assets/css/app.css'
     ],
 
-    plugins: ['~/plugins/http-custom.js'],
+    plugins: [],
 
     components: true,
 
@@ -29,6 +29,8 @@ export default {
     modules: [
         'bootstrap-vue/nuxt',
         '@nuxt/http',
+        '@nuxtjs/axios',
+        '@nuxtjs/auth-next',
         ['nuxt-fontawesome', {
             component: 'fa',
             imports: [
@@ -40,9 +42,33 @@ export default {
         }]
     ],
 
-    build: {},
+    axios: {
+        baseURL: 'http://localhost:8000/api'
+    },
 
-    env: {
-        apiUrl: 'http://localhost:8000'
-    }
+    auth: {
+        redirect: {
+            login: "/",
+            logout: "/",
+            home: "/app/search"
+        },
+        strategies: {
+            local: {
+                token: {
+                    property: 'authKey',
+                    type: 'Bearer'
+                },
+                user: {
+                    autoFetch: false
+                },
+                endpoints: {
+                    login: {url: '/login', method: 'post'},
+                    logout: {url: '/logout', method: 'post'},
+                    user: false
+                }
+            }
+        }
+    },
+
+    build: {}
 }

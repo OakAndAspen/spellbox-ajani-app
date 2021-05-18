@@ -2,7 +2,7 @@
     <b-nav vertical id="Navigation">
         <li class="nav-item my-2 text-center" v-for="item of menu">
             <nuxt-link :to="item.url">
-                <fa :icon="item.icon" class="Icon"/>
+                <fa :icon="item.icon" class="Icon" :title="item.text"/>
                 <span v-if="isOpen">{{ item.text }}</span>
             </nuxt-link>
         </li>
