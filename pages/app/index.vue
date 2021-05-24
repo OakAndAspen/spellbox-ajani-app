@@ -1,13 +1,14 @@
 <template>
-    <div class="d-flex justify-content-center" style="margin-top: 100px;">
-        <b-spinner label="Loading..." variant="info"></b-spinner>
-    </div>
+    <loader/>
 </template>
 
 <script>
+import Loader from "@/components/Loader.vue";
+
 export default {
+    components: {Loader},
     mounted() {
-        if(process.client) window.location = '/app/search';
+        if (process.client) window.location = '/app/search';
     }
 }
 </script>

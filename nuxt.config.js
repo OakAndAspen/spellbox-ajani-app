@@ -24,7 +24,9 @@ export default {
 
     components: true,
 
-    buildModules: [],
+    buildModules: [
+        '@nuxtjs/moment'
+    ],
 
     modules: [
         'bootstrap-vue/nuxt',
@@ -36,7 +38,7 @@ export default {
             imports: [
                 {
                     set: '@fortawesome/free-solid-svg-icons',
-                    icons: ['faSearch', 'faScroll', 'faChartPie', 'faBoxes', 'faList', 'faSignOutAlt', 'faBars']
+                    icons: ['faSearch', 'faScroll', 'faChartPie', 'faBoxes', 'faList', 'faSignOutAlt', 'faBars', 'faTrashAlt', 'faPencilAlt']
                 }
             ]
         }]
