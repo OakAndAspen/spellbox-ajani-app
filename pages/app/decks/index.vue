@@ -46,7 +46,7 @@ export default {
     data() {
         return {
             decks: null,
-            formats: ['Custom', 'Standard', 'Modern', 'Commander', 'Pioneer', 'Legacy', 'Pauper', 'Vintage', 'Brawl'],
+            formats: process.env.formats,
             form: {
                 name: '',
                 format: 'Custom'

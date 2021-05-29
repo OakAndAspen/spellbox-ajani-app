@@ -37,8 +37,13 @@ export default {
             component: 'fa',
             imports: [
                 {
-                    set: '@fortawesome/free-solid-svg-icons',
-                    icons: ['faSearch', 'faScroll', 'faChartPie', 'faBoxes', 'faList', 'faSignOutAlt', 'faBars', 'faTrashAlt', 'faPencilAlt']
+                    set: '@fortawesome/pro-solid-svg-icons',
+                    icons: ['faSearch', 'faScroll', 'faChartPie', 'faBoxes', 'faList', 'faSignOutAlt', 'faBars',
+                        'faTrashAlt', 'faPencilAlt', 'faSync', 'faCheck']
+                },
+                {
+                    set: '@fortawesome/pro-light-svg-icons',
+                    icons: ['faInfoCircle', 'faSearch', 'faChartPie', 'faFileExport', 'faFileImport']
                 }
             ]
         }]
@@ -72,5 +77,9 @@ export default {
         }
     },
 
-    build: {}
+    build: {},
+
+    env: {
+        formats: ['Custom', 'Standard', 'Modern', 'Commander', 'Pioneer', 'Legacy', 'Pauper', 'Vintage', 'Brawl']
+    }
 }
