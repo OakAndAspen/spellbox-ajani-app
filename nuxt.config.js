@@ -43,7 +43,7 @@ export default {
                 },
                 {
                     set: '@fortawesome/pro-light-svg-icons',
-                    icons: ['faInfoCircle', 'faSearch', 'faChartPie', 'faFileExport', 'faFileImport']
+                    icons: ['faInfoCircle', 'faSearch', 'faChartPie', 'faFileExport', 'faFileImport', 'faList']
                 }
             ]
         }]
