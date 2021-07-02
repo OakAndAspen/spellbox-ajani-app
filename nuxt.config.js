@@ -20,7 +20,9 @@ export default {
         '@/assets/css/app.css'
     ],
 
-    plugins: [],
+    plugins: [
+        {src: "@/plugins/imgSrc.js"}
+    ],
 
     components: true,
 
@@ -80,6 +82,7 @@ export default {
     build: {},
 
     env: {
-        formats: ['Custom', 'Standard', 'Modern', 'Commander', 'Pioneer', 'Legacy', 'Pauper', 'Vintage', 'Brawl']
+        formats: ['Custom', 'Standard', 'Modern', 'Commander', 'Pioneer', 'Legacy', 'Pauper', 'Vintage', 'Brawl'],
+        imgFolder: 'http://localhost:8000/images'
     }
 }

@@ -52,7 +52,7 @@
 
                 <!-- Display as icons -->
                 <b-row id="SetsIcons" v-if="display === 'icons'">
-                    <b-col v-for="set of filteredSets" sm="6" md="4" lg="3"
+                    <b-col v-for="set of filteredSets" sm="6" md="4" lg="3" :key="set.id"
                            class="text-center d-flex flex-column align-items-center my-4">
                         <b-img-lazy :src="set.iconSvgUri"/>
                         <nuxt-link :to="'/app/collection/'+set.code"

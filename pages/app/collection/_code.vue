@@ -22,7 +22,8 @@
                     </div>
                 </template>
             </b-tab>
-            <b-tab v-for="tab of tabs" :active="activeTab === tab.label" class="p-4">
+            <b-tab v-for="tab of tabs" :key="tab.label"
+                   :active="activeTab === tab.label" class="p-4">
                 <template #title>
                     <span><fa :icon="['fal', tab.icon]" class="mr-2"/> {{ tab.label }}</span>
                 </template>
