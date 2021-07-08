@@ -2,18 +2,23 @@
     <div>
         <!-- Filters -->
         <b-row id="SetCardsFilters" class="mb-4">
-            <b-col>
+            <b-col md="6">
                 <b-row v-for="(array, category) in filters" :key="category">
-                    <b-col sm="3" class="d-flex align-items-center"><p class="m-0">{{category.toUpperCase()}}</p></b-col>
-                    <b-col v-for="e of array" :key="e.code" sm="1"
-                           :class="'Filter p-2 m-1 rounded-circle status-'+e.status">
-                        <img :src="$imgSrc(e.image)"
-                             @click="toggleFilter(category, e.code)"
-                             :alt="e.label" :title="e.label" class="img-fluid">
+                    <b-col cols="3" class="align-items-center d-none d-lg-flex"><p class="m-0">{{ category.toUpperCase() }}</p>
+                    </b-col>
+                    <b-col>
+                        <div class="d-flex flex-row justify-content-start">
+                            <span v-for="e of array" :key="e.code"
+                                  :class="'Filter rounded-circle status-'+e.status">
+                                <img :src="$imgSrc(e.image)" class="img-fluid"
+                                     @click="toggleFilter(category, e.code)"
+                                     :alt="e.label" :title="e.label">
+                            </span>
+                        </div>
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col>
+            <b-col md="6">
                 <b-row v-for="(filter, key) in fullTextFilters" :key="key" class="mb-2">
                     <b-col>
                         <b-input :placeholder="filter.label" v-model="filter.value"/>
@@ -22,9 +27,11 @@
             </b-col>
         </b-row>
 
+        <hr class="my-4"/>
+
         <!-- Cards -->
         <b-row>
-            <b-col v-for="card of cards" :key="card.id"
+            <b-col v-for="card of filteredCards" :key="card.id"
                    sm="2" md="4" lg="3">
                 <b-img-lazy :src="card.faces[0].imageUriNormal" class="img-fluid mb-4"/>
             </b-col>
@@ -73,8 +80,8 @@ export default {
                 W: "White",
                 U: "Blue",
                 B: "Black",
-                R: "Green",
-                G: "Red",
+                R: "Red",
+                G: "Green",
                 C: "Colorless"
             };
 
@@ -117,7 +124,7 @@ export default {
                 this.filters.types.push({
                     code: code,
                     label: types[code],
-                    image: 'types/' + code + '.png',
+                    image: 'types/' + code + '.svg',
                     status: 'neutral'
                 });
             }
@@ -140,12 +147,125 @@ export default {
                 if (e.code === code) e.status = newStatus;
             }
         }
+    },
+    computed: {
+        filteredCards() {
+            let cards = this.cards;
+
+            // Filter by name
+            let nameFilter = this.fullTextFilters.name.value.toLowerCase();
+            if (nameFilter && nameFilter !== '') {
+                cards = cards.filter(c => c.name.toLowerCase().includes(nameFilter));
+            }
+
+            // Filter by type
+            let typeFilter = this.fullTextFilters.type.value.toLowerCase();
+            if (typeFilter && typeFilter !== '') {
+                cards = cards.filter(c => {
+                    let ok = false;
+                    for (let f of c.faces) {
+                        if (f.typeLine.toLowerCase().includes(typeFilter)) ok = true;
+                    }
+                    return ok;
+                });
+            }
+
+            // Filter by oracle text
+            let textFilter = this.fullTextFilters.text.value.toLowerCase();
+            if (textFilter && textFilter !== '') {
+                cards = cards.filter(c => {
+                    let ok = false;
+                    for (let f of c.faces) {
+                        if (f.oracleText.toLowerCase().includes(textFilter)) ok = true;
+                    }
+                    return ok;
+                });
+            }
+
+            // Filter by color
+            let selectedColors = [];
+            let excludedColors = [];
+            for (let color of this.filters.colors) {
+                if (color.status === 'selected') selectedColors.push(color.code.toUpperCase());
+                if (color.status === 'excluded') excludedColors.push(color.code.toUpperCase());
+            }
+            if (selectedColors.length) {
+                cards = cards.filter(c => {
+                    let ok = false;
+                    for (let sc of selectedColors) {
+                        if (c.colorIdentity.includes(sc)) ok = true;
+                    }
+                    return ok;
+                });
+            }
+            if (excludedColors.length) {
+                cards = cards.filter(c => {
+                    let ok = true;
+                    for (let ec of excludedColors) {
+                        if (c.colorIdentity.includes(ec)) ok = false;
+                    }
+                    return ok;
+                });
+            }
+
+            // Filter by rarity
+            let selectedRarities = [];
+            for (let rarity of this.filters.rarities) {
+                if (rarity.status === 'selected') selectedRarities.push(rarity.code.toLowerCase());
+            }
+            if (selectedRarities.length) {
+                cards = cards.filter(c => selectedRarities.includes(c.rarity.toLowerCase().charAt(0)));
+            }
+
+            // Filter by type
+            let selectedTypes = [];
+            let excludedTypes = [];
+            for (let type of this.filters.types) {
+                if (type.status === 'selected') selectedTypes.push(type.label.toLowerCase());
+                if (type.status === 'excluded') excludedTypes.push(type.label.toLowerCase());
+            }
+            if (selectedTypes.length) {
+                cards = cards.filter(c => {
+                    let ok = false;
+                    for (let f of c.faces) {
+                        for (let st of selectedTypes) {
+                            if (f.typeLine.toLowerCase().includes(st)) ok = true;
+                        }
+                    }
+                    return ok;
+                });
+            }
+            if (excludedTypes.length) {
+                cards = cards.filter(c => {
+                    let ok = true;
+                    for (let f of c.faces) {
+                        for (let et of excludedTypes) {
+                            if (f.typeLine.toLowerCase().includes(et)) ok = false;
+                        }
+                    }
+                    return ok;
+                });
+            }
+
+            return cards;
+        }
     }
 }
 
 </script>
 
 <style>
+
+#SetCardsFilters .Filter {
+    padding: 6px;
+    width: 14%;
+}
+
+#SetCardsFilters .Filter img {
+    max-height: 40px;
+    min-width: 20px;
+}
+
 #SetCardsFilters .Filter.status-selected {
     background-color: rgba(var(--sb-green), 0.5);
 }
